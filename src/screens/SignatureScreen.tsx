@@ -29,11 +29,21 @@ const SignatureScreen = ({ navigation, route }: any) => {
     ref.current?.readSignature();
   };
 
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Assinatura Digital</Text>
         <Text style={styles.subtitle}>Assine no quadro abaixo</Text>
+      </View>
+
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <TouchableOpacity 
+          style={{ backgroundColor: '#E53935', padding: 15, borderRadius: 8 }}
+          onPress={() => navigation.navigate('MapScreen')}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Abrir Mapa</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.signatureContainer}>

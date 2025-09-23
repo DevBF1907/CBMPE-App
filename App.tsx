@@ -21,6 +21,7 @@ export default function App() {
 
        <Stack.Screen name="Nova Ocorrência" component={OccurrenceFormScreen} />
        <Stack.Screen name="Assinatura" component={SignatureScreen} />
+      
 
       </Stack.Navigator>
     </NavigationContainer>
