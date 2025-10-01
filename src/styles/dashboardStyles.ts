@@ -1,0 +1,148 @@
+import { StyleSheet } from 'react-native';
+
+export const dashboardStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
+  },
+  header: {
+    backgroundColor: '#E53935',
+    paddingTop: 60,
+    paddingBottom: 30,
+    paddingHorizontal: 30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 30,
+    marginTop: -20,
+    marginBottom: 30,
+  },
+  statCard: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 20,
+    alignItems: 'center',
+    marginHorizontal: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  statValue: {
+    fontSize: 32,
+    fontWeight: '800',
+    marginBottom: 8,
+  },
+  statLabel: {
+    fontSize: 14,
+    color: '#64748B',
+    textAlign: 'center',
+    fontWeight: '500',
+  },
+  actionsContainer: {
+    paddingHorizontal: 30,
+    marginBottom: 30,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1A202C',
+    marginBottom: 16,
+  },
+  actionCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 16,
+    borderLeftWidth: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  actionContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  actionIcon: {
+    fontSize: 24,
+    marginRight: 16,
+  },
+  actionText: {
+    flex: 1,
+  },
+  actionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1A202C',
+    marginBottom: 4,
+  },
+  actionSubtitle: {
+    fontSize: 14,
+    color: '#64748B',
+  },
+  actionArrow: {
+    fontSize: 18,
+    color: '#94A3B8',
+    fontWeight: '600',
+  },
+  recentActivity: {
+    paddingHorizontal: 30,
+    marginBottom: 30,
+  },
+  activityCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  activityItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  activityDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginRight: 16,
+  },
+  activityContent: {
+    flex: 1,
+  },
+  activityTitle: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#1A202C',
+    marginBottom: 4,
+  },
+  activityTime: {
+    fontSize: 12,
+    color: '#64748B',
+  },
+});
