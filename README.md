@@ -1,264 +1,671 @@
 # 🚒 CBMPE - Sistema de Gestão de Ocorrências
 
-> **Aplicativo profissional para o Corpo de Bombeiros Militar de Pernambuco**
+> **Aplicativo móvel profissional para o Corpo de Bombeiros Militar de Pernambuco**
 
 [![React Native](https://img.shields.io/badge/React%20Native-0.81.4-blue.svg)](https://reactnative.dev/)
 [![Expo](https://img.shields.io/badge/Expo-~54.0.7-black.svg)](https://expo.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-~5.9.2-blue.svg)](https://www.typescriptlang.org/)
 
+---
+
 ## 📋 Índice
+
 - [Sobre o Projeto](#-sobre-o-projeto)
-- [Pré-requisitos](#-pré-requisitos)
-- [Instalação](#-instalação)
+- [Pré-requisitos](#️-pré-requisitos)
+- [Instalação Passo a Passo](#-instalação-passo-a-passo)
 - [Como Executar](#-como-executar)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
-- [Funcionalidades](#-funcionalidades)
+- [Sistema de Mock (Importante!)](#-sistema-de-mock-importante)
+- [Funcionalidades Implementadas](#-funcionalidades-implementadas)
+- [Arquitetura e Decisões Técnicas](#-arquitetura-e-decisões-técnicas)
+- [Fluxo de Desenvolvimento](#-fluxo-de-desenvolvimento)
+- [Troubleshooting](#-troubleshooting)
 - [Como Contribuir](#-como-contribuir)
-- [Tecnologias](#-tecnologias)
-- [Contato](#-contato)
+- [Tecnologias e Dependências](#-tecnologias-e-dependências)
+- [Próximos Passos](#-próximos-passos)
+
+---
 
 ## 🎯 Sobre o Projeto
 
-O **CBMPE App** é um sistema completo de gestão de ocorrências desenvolvido especificamente para o Corpo de Bombeiros Militar de Pernambuco. O aplicativo permite que militares registrem, gerenciem e acompanhem ocorrências de forma eficiente e profissional.
+O **CBMPE App** é um sistema completo de gestão de ocorrências desenvolvido especificamente para o Corpo de Bombeiros Militar de Pernambuco. O aplicativo permite que militares registrem, gerenciem e acompanhem ocorrências de forma eficiente e profissional diretamente de seus dispositivos móveis.
 
 ### 🎨 Características Principais
-- **Interface moderna** e intuitiva
-- **Design responsivo** para diferentes dispositivos
-- **Navegação fluida** entre telas
-- **Componentes reutilizáveis** e modulares
-- **Tipagem forte** com TypeScript
-- **Estrutura escalável** e bem organizada
+
+- ✅ **Interface moderna** e intuitiva seguindo design system do CBMPE
+- ✅ **Design responsivo** para diferentes tamanhos de tela
+- ✅ **Navegação fluida** entre telas
+- ✅ **Componentes reutilizáveis** e modulares
+- ✅ **Tipagem forte** com TypeScript
+- ✅ **Estrutura escalável** e bem organizada
+- ✅ **Sistema de Mock** para desenvolvimento sem backend
+- ✅ **Offline-first** (preparado para funcionar offline)
+
+### 📱 Plataformas Suportadas
+
+- ✅ Android
+- ✅ iOS
+- ✅ Web (para testes)
+
+---
 
 ## ⚙️ Pré-requisitos
 
 Antes de começar, certifique-se de ter instalado:
 
-### 📱 Para Desenvolvimento Mobile
-- **Node.js** (versão 18 ou superior)
-- **npm** ou **yarn**
-- **Expo CLI**: `npm install -g @expo/cli`
-- **Git** para controle de versão
+### 📋 Obrigatório
 
-### 📲 Para Testar no Dispositivo
+1. **Node.js** (versão 18 ou superior)
+   - Download: [nodejs.org](https://nodejs.org/)
+   - Verificar instalação: `node --version`
+
+2. **npm** (vem com Node.js)
+   - Verificar instalação: `npm --version`
+
+3. **Git**
+   - Download: [git-scm.com](https://git-scm.com/)
+   - Verificar instalação: `git --version`
+
+### 📱 Para Testar no Dispositivo
+
 - **Expo Go** (Android/iOS)
   - [Android - Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent)
   - [iOS - App Store](https://apps.apple.com/app/expo-go/id982107779)
 
-### 💻 Para Desenvolvimento
-- **VS Code** (recomendado)
-- **Extensões úteis**:
+### 💻 Para Desenvolvimento (Recomendado)
+
+- **VS Code** ou outro editor de código
+- **Extensões úteis para VS Code**:
   - ES7+ React/Redux/React-Native snippets
   - TypeScript Importer
   - Prettier - Code formatter
   - ESLint
 
-## 🚀 Instalação
+### 🖥️ Para Emuladores (Opcional)
+
+- **Android Studio** (para emulador Android)
+- **Xcode** (apenas macOS, para simulador iOS)
+
+---
+
+## 🚀 Instalação Passo a Passo
 
 ### 1. Clone o Repositório
+
 ```bash
+# Clone o repositório
 git clone https://github.com/seu-usuario/cbmpe-app.git
+
+# Entre na pasta do projeto
 cd cbmpe-app
 ```
 
 ### 2. Instale as Dependências
+
 ```bash
+# Instalar todas as dependências
 npm install
-# ou
+
+# OU usando yarn (se preferir)
 yarn install
 ```
 
+> ⏱️ **Tempo estimado**: 2-5 minutos (dependendo da conexão)
+
 ### 3. Verifique a Instalação
+
 ```bash
+# Verificar se tudo está instalado corretamente
 npx expo doctor
 ```
 
+Se aparecer algum erro, siga as instruções que aparecerem no terminal.
+
+### 4. Instale o Expo CLI Globalmente (Opcional)
+
+```bash
+npm install -g @expo/cli
+```
+
+---
+
 ## ▶️ Como Executar
 
-### 🖥️ Modo Desenvolvimento
+### 🖥️ Modo Desenvolvimento (Terminal)
+
 ```bash
 # Inicia o servidor de desenvolvimento
-npx expo start
+npm start
 
-# Ou com yarn
-yarn expo start
+# OU
+npx expo start
 ```
 
-### 📱 Testando no Dispositivo
+Isso irá abrir o Expo DevTools no navegador e mostrar um QR Code no terminal.
+
+### 📱 Testando no Dispositivo Físico
 
 #### **Opção 1: Expo Go (Recomendado para testes)**
-1. Abra o terminal e execute `npx expo start`
-2. Escaneie o QR Code com:
-   - **Android**: App Expo Go
-   - **iOS**: Câmera do iPhone
-3. O app será carregado automaticamente
 
-#### **Opção 2: Emulador/Simulador**
+1. Instale o app **Expo Go** no seu celular:
+   - [Android - Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent)
+   - [iOS - App Store](https://apps.apple.com/app/expo-go/id982107779)
+
+2. Abra o terminal e execute:
+   ```bash
+   npm start
+   ```
+
+3. Escaneie o QR Code:
+   - **Android**: Abra o app Expo Go e toque em "Scan QR Code"
+   - **iOS**: Use a câmera do iPhone (ela detecta automaticamente)
+
+4. Aguarde o app carregar (primeira vez pode demorar um pouco)
+
+#### **Opção 2: Link Direto**
+
+No terminal do Expo, pressione:
+- `a` para abrir no Android
+- `i` para abrir no iOS
+- `w` para abrir no navegador
+
+### 🖥️ Testando em Emulador/Simulador
+
 ```bash
-# Para Android
-npx expo start --android
+# Para Android (precisa ter Android Studio instalado)
+npm run android
 
-# Para iOS (apenas no macOS)
-npx expo start --ios
+# Para iOS (apenas no macOS, precisa ter Xcode)
+npm run ios
+
+# Para Web (navegador)
+npm run web
 ```
 
-### 🌐 Modo Web (Desenvolvimento)
+### 🔄 Comandos Úteis Durante o Desenvolvimento
+
 ```bash
-npx expo start --web
+# Limpar cache e reiniciar
+npx expo start --clear
+
+# Reiniciar Metro Bundler
+# Pressione 'r' no terminal do Expo
+
+# Recarregar app
+# Agite o dispositivo ou pressione 'r' no terminal
 ```
+
+---
 
 ## 📂 Estrutura do Projeto
 
 ```
-📦 cbmpe-app/
+cbmpe-app/
 ├── 📂 src/
-│   ├── 📂 styles/            # 🎨 Sistema de Estilos Organizados
-│   │   ├── authStyles.ts     # Estilos da tela de login
-│   │   ├── dashboardStyles.ts # Estilos do dashboard
+│   ├── 📂 assets/              # 🎨 Recursos estáticos
+│   │   ├── 📂 images/          # Imagens
+│   │   │   └── brasao.png      # Logo oficial do CBMPE
+│   │   ├── 📂 icons/           # Ícones (futuro)
+│   │   └── 📂 fonts/           # Fontes customizadas (futuro)
+│   │
+│   ├── 📂 components/          # 🧩 Componentes reutilizáveis
+│   │   ├── 📂 common/          # Componentes comuns
+│   │   │   ├── Button.tsx      # Botão customizado
+│   │   │   ├── Input.tsx       # Input customizado
+│   │   │   ├── Card.tsx        # Card component
+│   │   │   ├── Loading.tsx     # Componente de loading
+│   │   │   └── index.ts        # Exportações centralizadas
+│   │   └── 📂 forms/           # Componentes de formulário (futuro)
+│   │
+│   ├── 📂 screens/             # 📱 Telas do aplicativo
+│   │   ├── 📂 auth/            # Autenticação
+│   │   │   ├── LoginScreen.tsx     # Tela de login
+│   │   │   └── RegisterScreen.tsx  # Tela de cadastro
+│   │   ├── 📂 dashboard/       # Dashboard principal
+│   │   │   └── DashboardScreen.tsx # Tela inicial após login
+│   │   ├── 📂 occurrences/     # Gestão de ocorrências
+│   │   │   ├── OccurrenceFormScreen.tsx  # Formulário de nova ocorrência
+│   │   │   ├── OccurrenceListScreen.tsx  # Lista de ocorrências
+│   │   │   └── SignatureScreen.tsx       # Captura de assinatura
+│   │   └── 📂 profile/         # Perfil do usuário (futuro)
+│   │
+│   ├── 📂 navigation/          # 🧭 Sistema de navegação
+│   │   └── AppNavigator.tsx    # Configuração principal de navegação
+│   │
+│   ├── 📂 services/            # 🔌 Serviços e integrações
+│   │   ├── 📂 api/             # Serviços de API
+│   │   │   ├── config.ts              # Configuração do Axios
+│   │   │   ├── authService.ts         # Serviço de autenticação
+│   │   │   └── authService.mock.ts    # Mock do serviço de autenticação
+│   │   └── 📂 storage/         # Serviços de armazenamento (futuro)
+│   │
+│   ├── 📂 styles/              # 🎨 Sistema de estilos
+│   │   ├── authStyles.ts       # Estilos das telas de autenticação
+│   │   ├── dashboardStyles.ts  # Estilos do dashboard
 │   │   ├── occurrenceStyles.ts # Estilos das ocorrências
-│   │   ├── signatureStyles.ts # Estilos da assinatura
-│   │   ├── globalStyles.ts   # Estilos globais e constantes
-│   │   └── index.ts          # Exportações centralizadas
+│   │   ├── signatureStyles.ts  # Estilos da assinatura
+│   │   ├── globalStyles.ts     # Estilos globais
+│   │   └── index.ts            # Exportações centralizadas
 │   │
-│   ├── 📂 screens/           # 📱 Telas do Aplicativo
-│   │   ├── 📂 auth/         # Tela de Login profissional
-│   │   │   └── LoginScreen.tsx
-│   │   ├── 📂 dashboard/    # Dashboard com estatísticas
-│   │   │   └── DashboardScreen.tsx
-│   │   ├── 📂 occurrences/  # Telas de Ocorrências
-│   │   │   ├── OccurrenceFormScreen.tsx
-│   │   │   ├── OccurrenceListScreen.tsx
-│   │   │   └── SignatureScreen.tsx
-│   │   └── 📂 profile/      # Perfil do Usuário (futuro)
+│   ├── 📂 types/               # 📝 Definições TypeScript
+│   │   ├── auth.ts             # Tipos relacionados à autenticação
+│   │   ├── occurrence.ts       # Tipos relacionados a ocorrências
+│   │   ├── navigation.ts       # Tipos de navegação
+│   │   └── index.ts            # Exportações centralizadas
 │   │
-│   ├── 📂 navigation/        # 🧭 Navegação
-│   │   └── AppNavigator.tsx # Configuração de navegação
-│   │
-│   ├── 📂 types/            # 📝 Definições TypeScript
-│   │   ├── auth.ts          # Tipos de autenticação
-│   │   ├── occurrence.ts    # Tipos de ocorrências
-│   │   ├── navigation.ts    # Tipos de navegação
-│   │   └── index.ts         # Exportações dos tipos
-│   │
-│   ├── 📂 utils/            # 🛠️ Utilitários
-│   │   └── 📂 constants/    # Constantes (legado)
-│   │       ├── colors.ts    # Paleta de cores
-│   │       ├── dimensions.ts # Dimensões e espaçamentos
-│   │       └── index.ts     # Re-exportações
-│   │
-│   └── 📂 assets/           # 🎨 Recursos
-│       └── 📂 images/       # Imagens (logo CBMPE)
-│           └── brasao.png   # Logo oficial
+│   └── 📂 utils/               # 🛠️ Utilitários e helpers
+│       ├── 📂 constants/       # Constantes do projeto
+│       │   ├── colors.ts       # Paleta de cores
+│       │   ├── dimensions.ts   # Dimensões e espaçamentos
+│       │   └── index.ts        # Exportações
+│       ├── 📂 helpers/         # Funções auxiliares (futuro)
+│       └── 📂 validation/      # Validações (futuro)
 │
-├── App.tsx                   # 🚀 Arquivo Principal
-├── package.json             # 📦 Dependências
-├── app.json                 # ⚙️ Configuração do Expo
-├── tsconfig.json            # 🔧 Configuração TypeScript
-└── README.md                # 📖 Este arquivo
+├── 📂 assets/                  # Assets do Expo (ícones, splash)
+├── App.tsx                     # 🚀 Componente raiz da aplicação
+├── index.ts                    # Ponto de entrada
+├── package.json                # 📦 Dependências e scripts
+├── app.json                    # ⚙️ Configuração do Expo
+├── tsconfig.json               # 🔧 Configuração TypeScript
+└── README.md                   # 📖 Este arquivo
 ```
 
-## 🎨 Sistema de Estilos
+### 📝 Explicação das Pastas Principais
 
-O projeto utiliza uma **arquitetura de estilos modular** e bem organizada:
+#### `src/screens/`
+Contém todas as telas do aplicativo. Cada tela é um componente React completo com sua própria lógica e estado.
 
-### 📁 **Estrutura de Estilos**
-```
-src/styles/
-├── 🎨 globalStyles.ts      # Cores, constantes e estilos globais
-├── 🔐 authStyles.ts        # Estilos da tela de login
-├── 📊 dashboardStyles.ts   # Estilos do dashboard
-├── 📝 occurrenceStyles.ts  # Estilos das ocorrências
-├── ✍️ signatureStyles.ts   # Estilos da assinatura
-└── 📦 index.ts             # Exportações centralizadas
-```
+#### `src/components/`
+Componentes reutilizáveis que podem ser usados em várias telas. Componentes comuns como Button, Input, etc.
 
-### 🎯 **Benefícios da Organização**
-- **Separação de responsabilidades** por tela
-- **Reutilização** de estilos globais
-- **Manutenibilidade** facilitada
-- **Consistência** visual garantida
-- **Performance** otimizada
+#### `src/services/api/`
+Contém a lógica de comunicação com APIs. Atualmente está usando sistema mock, mas quando a API estiver pronta, basta alterar a configuração.
 
-### 🎨 **Sistema de Design**
+#### `src/styles/`
+Sistema de estilos modular. Cada tela tem seu próprio arquivo de estilos para facilitar manutenção.
+
+#### `src/types/`
+Definições TypeScript para garantir tipagem forte em todo o projeto.
+
+#### `src/navigation/`
+Configuração de navegação entre telas usando React Navigation.
+
+---
+
+## 🔧 Sistema de Mock (Importante!)
+
+### ⚠️ ATENÇÃO: O projeto está usando MOCK no momento!
+
+O aplicativo está configurado para funcionar **sem backend/API** usando um sistema de mock. Isso permite testar todas as funcionalidades do frontend sem precisar de uma API rodando.
+
+### 📍 Onde está configurado?
+
+**Arquivo**: `src/services/api/authService.ts`
+
 ```typescript
-// Cores oficiais do CBMPE
-Colors.primary = '#E53935'    // Vermelho CBMPE
-Colors.secondary = '#FFD700'  // Dourado CBMPE
-
-// Espaçamentos consistentes
-Spacing.xs = 4px, sm = 8px, md = 16px, lg = 24px, xl = 32px
-
-// Bordas padronizadas
-BorderRadius.sm = 4px, md = 8px, lg = 12px, xl = 16px, xxl = 24px
+// Linha 21
+const USE_MOCK = true; // Mude para false quando tiver a API
 ```
 
-### 💡 **Como Usar**
+### 🔄 Como funciona o Mock?
+
+1. **Armazenamento em memória**: Os usuários cadastrados são armazenados em um array JavaScript (perdidos ao recarregar o app)
+
+2. **Validações funcionam**: Email duplicado, senha mínima, etc.
+
+3. **AsyncStorage**: Token e dados do usuário são salvos localmente (como se fosse uma API real)
+
+4. **Delay simulado**: Simula delay de rede (800ms) para parecer real
+
+### 🧪 Como testar com Mock?
+
+1. **Cadastrar um usuário**:
+   - Vá para a tela de Cadastro
+   - Preencha os dados
+   - Clique em "Cadastrar"
+   - ✅ Usuário será salvo em memória
+
+2. **Fazer login**:
+   - Use o email e senha que você cadastrou
+   - Clique em "Acessar Sistema"
+   - ✅ Login funcionará normalmente
+
+3. **Importante**: 
+   - ⚠️ Os dados são perdidos ao recarregar o app (estão apenas em memória)
+   - ⚠️ Você precisa cadastrar antes de fazer login
+   - ⚠️ Cada vez que recarregar, precisa cadastrar novamente
+
+### 🔄 Quando tiver a API pronta:
+
+1. Abra `src/services/api/authService.ts`
+2. Mude `USE_MOCK = false`
+3. Descomente o código da API real (linhas 28-91)
+4. Configure a URL da API em `src/services/api/config.ts`
+5. Pronto! O app usará a API real
+
+### 📝 Arquivos relacionados ao Mock:
+
+- `src/services/api/authService.mock.ts` - Implementação do mock
+- `src/services/api/authService.ts` - Serviço principal (usa mock ou API)
+- `src/services/api/config.ts` - Configuração da API (não usado no mock)
+
+---
+
+## ✨ Funcionalidades Implementadas
+
+### ✅ Autenticação
+
+- [x] **Tela de Login**
+  - Validação de campos
+  - Feedback visual de loading
+  - Tratamento de erros
+  - Integração com sistema mock
+
+- [x] **Tela de Cadastro**
+  - Formulário completo com validações
+  - Validação de email
+  - Validação de senha (mínimo 6 caracteres)
+  - Confirmação de senha
+  - Campos: Nome, Email, Patente, Unidade, Senha
+
+- [x] **Navegação entre Login e Cadastro**
+  - Link para cadastro na tela de login
+  - Link para login na tela de cadastro
+
+### ✅ Dashboard
+
+- [x] **Tela Principal**
+  - Estatísticas (ocorrências hoje, concluídas, em andamento)
+  - Ações rápidas
+  - Atividade recente
+  - Cards informativos
+
+### ✅ Gestão de Ocorrências
+
+- [x] **Formulário de Ocorrência**
+  - Campos: Tipo, Endereço, Descrição, Prioridade
+  - Validação de campos obrigatórios
+  - Seleção de prioridade (Baixa, Média, Alta, Crítica)
+
+- [x] **Lista de Ocorrências**
+  - Visualização de ocorrências
+  - Filtros por status e prioridade
+  - Estatísticas gerais
+  - Cards informativos
+
+- [x] **Assinatura Digital**
+  - Captura de assinatura em canvas
+  - Validação de assinatura vazia
+  - Salvamento de assinatura
+
+### 🔄 Em Desenvolvimento
+
+- [ ] Integração com API real
+- [ ] Upload de imagens
+- [ ] Geolocalização
+- [ ] Notificações push
+- [ ] Perfil do usuário
+- [ ] Edição de ocorrências
+- [ ] Filtros avançados
+- [ ] Busca de ocorrências
+
+---
+
+## 🏗️ Arquitetura e Decisões Técnicas
+
+### 🎯 Padrões Arquiteturais
+
+#### 1. **Separação de Responsabilidades**
+- Cada tela tem sua própria pasta
+- Estilos separados por funcionalidade
+- Serviços isolados em pastas específicas
+
+#### 2. **Componentes Reutilizáveis**
+- Componentes comuns em `src/components/common/`
+- Fácil manutenção e reutilização
+- Consistência visual
+
+#### 3. **TypeScript para Tipagem Forte**
+- Todos os arquivos são TypeScript
+- Interfaces bem definidas
+- Autocomplete e detecção de erros
+
+#### 4. **Sistema de Estilos Modular**
+- Estilos organizados por tela
+- Cores e constantes centralizadas
+- Fácil customização
+
+### 🔐 Autenticação
+
+#### Fluxo de Autenticação:
+
+1. **Cadastro**:
+   - Usuário preenche formulário
+   - Dados são validados
+   - Usuário é salvo (mock ou API)
+   - Redireciona para login
+
+2. **Login**:
+   - Usuário insere email e senha
+   - Credenciais são validadas
+   - Token é gerado e salvo no AsyncStorage
+   - Dados do usuário são salvos
+   - Redireciona para Dashboard
+
+3. **Persistência**:
+   - Token salvo no AsyncStorage
+   - Dados do usuário salvos localmente
+   - Verificação de autenticação em cada sessão
+
+### 📱 Navegação
+
+#### Estrutura de Navegação:
+
+```
+Login
+  └── Register (Cadastro)
+  └── Dashboard (após login)
+       └── OccurrenceForm (Nova Ocorrência)
+       └── OccurrenceList (Lista de Ocorrências)
+       └── Signature (Assinatura Digital)
+```
+
+#### Stack Navigator:
+
+- Usa React Navigation Stack
+- Headers customizados
+- Navegação tipo pilha (stack)
+
+### 🎨 Design System
+
+#### Cores Oficiais CBMPE:
+
 ```typescript
-// Importar estilos específicos
-import { authStyles } from '../../styles';
-
-// Usar estilos globais
-import { Colors, Spacing, globalStyles } from '../../styles';
-
-// Aplicar nos componentes
-<View style={authStyles.container}>
-  <Text style={globalStyles.headerTitle}>Título</Text>
-</View>
+primary: '#E53935'    // Vermelho CBMPE
+secondary: '#FFD700'  // Dourado CBMPE
+success: '#10B981'    // Verde
+warning: '#F59E0B'    // Amarelo
+error: '#EF4444'      // Vermelho erro
 ```
 
-## 🎯 Funcionalidades
+#### Espaçamentos Padronizados:
 
-### 🔐 **Autenticação**
-- Login seguro com credenciais institucionais
-- Interface profissional com logo oficial do CBMPE
-- Validação de campos em tempo real
-- Feedback visual de carregamento
+```typescript
+xs: 4px   // Muito pequeno
+sm: 8px   // Pequeno
+md: 16px  // Médio
+lg: 24px  // Grande
+xl: 32px  // Muito grande
+```
 
-### 📊 **Dashboard**
-- Estatísticas em tempo real
-- Ações rápidas para navegação
-- Atividade recente
-- Cards informativos
+---
 
-### 📋 **Gestão de Ocorrências**
-- **Registro**: Formulário completo com validação
-- **Lista**: Visualização organizada com filtros
-- **Detalhes**: Informações completas da ocorrência
-- **Status**: Acompanhamento do progresso
+## 🔄 Fluxo de Desenvolvimento
 
-### ✍️ **Assinatura Digital**
-- Captura de assinatura
-- Validação e salvamento
-- Integração com ocorrências
+### 📝 Criando uma Nova Tela
 
-### 🎨 **Interface**
-- Design responsivo
-- Cores oficiais do CBMPE
-- Componentes reutilizáveis
-- Animações suaves
+1. **Criar arquivo da tela**:
+   ```bash
+   # Exemplo: src/screens/profile/ProfileScreen.tsx
+   ```
+
+2. **Criar estilos**:
+   ```bash
+   # Exemplo: src/styles/profileStyles.ts
+   ```
+
+3. **Adicionar tipos** (se necessário):
+   ```typescript
+   // src/types/navigation.ts
+   export type RootStackParamList = {
+     // ... outros
+     Profile: undefined;
+   };
+   ```
+
+4. **Adicionar ao navegador**:
+   ```typescript
+   // src/navigation/AppNavigator.tsx
+   import ProfileScreen from '../screens/profile/ProfileScreen';
+   
+   <Stack.Screen
+     name="Profile"
+     component={ProfileScreen}
+     options={{ title: 'Perfil' }}
+   />
+   ```
+
+### 🧩 Criando um Novo Componente
+
+1. **Criar arquivo do componente**:
+   ```bash
+   # Exemplo: src/components/common/Modal.tsx
+   ```
+
+2. **Exportar no index**:
+   ```typescript
+   // src/components/common/index.ts
+   export { default as Modal } from './Modal';
+   ```
+
+3. **Usar no componente**:
+   ```typescript
+   import { Modal } from '../components/common';
+   ```
+
+### 🔌 Criando um Novo Serviço
+
+1. **Criar arquivo do serviço**:
+   ```bash
+   # Exemplo: src/services/api/occurrenceService.ts
+   ```
+
+2. **Implementar métodos**:
+   ```typescript
+   export const occurrenceService = {
+     async getAll() { ... },
+     async getById(id: string) { ... },
+     // ...
+   };
+   ```
+
+3. **Usar no componente**:
+```typescript
+   import { occurrenceService } from '../services/api/occurrenceService';
+   ```
+
+---
+
+## 🐛 Troubleshooting
+
+### ❌ Problemas Comuns e Soluções
+
+#### 1. **Erro ao instalar dependências**
+
+```bash
+# Limpar cache do npm
+npm cache clean --force
+
+# Deletar node_modules e package-lock.json
+rm -rf node_modules package-lock.json
+
+# Reinstalar
+npm install
+```
+
+#### 2. **App não carrega no dispositivo**
+
+- Verifique se o dispositivo e computador estão na mesma rede Wi-Fi
+- Tente usar o modo "Tunnel" no Expo:
+  ```bash
+  npx expo start --tunnel
+  ```
+
+#### 3. **Erro de tipos TypeScript**
+
+```bash
+# Verificar tipos
+npx tsc --noEmit
+
+# Reinstalar tipos
+npm install --save-dev @types/react @types/react-native
+```
+
+#### 4. **Metro Bundler travado**
+
+```bash
+# Limpar cache
+npx expo start --clear
+
+# Ou fechar e reiniciar
+# Ctrl+C para parar
+# npm start para iniciar novamente
+```
+
+#### 5. **Erro "Unable to resolve module"**
+
+```bash
+# Limpar cache e reinstalar
+rm -rf node_modules
+npm install
+npx expo start --clear
+```
+
+#### 6. **App não reconhece mudanças no código**
+
+- Pressione `r` no terminal do Expo para recarregar
+- Ou agite o dispositivo e toque em "Reload"
+
+#### 7. **Erro ao cadastrar usuário (Mock)**
+
+- Verifique o console para ver os logs
+- Certifique-se de preencher todos os campos
+- Email deve ser válido
+- Senha deve ter no mínimo 6 caracteres
+- Senhas devem coincidir
+
+#### 8. **Login não funciona (Mock)**
+
+- Certifique-se de ter cadastrado um usuário primeiro
+- Use o mesmo email e senha do cadastro
+- Verifique o console para logs de erro
+
+---
 
 ## 🤝 Como Contribuir
 
-### 📋 **Fluxo de Contribuição**
+### 📋 Checklist antes de contribuir
 
-1. **Fork** o projeto
-2. **Clone** seu fork: `git clone https://github.com/seu-usuario/cbmpe-app.git`
-3. **Crie** uma branch: `git checkout -b feature/nova-funcionalidade`
-4. **Commit** suas mudanças: `git commit -m 'Adiciona nova funcionalidade'`
-5. **Push** para a branch: `git push origin feature/nova-funcionalidade`
-6. **Abra** um Pull Request
+- [ ] Fork do projeto
+- [ ] Criação de branch (`git checkout -b feature/MinhaFeature`)
+- [ ] Commit das mudanças (`git commit -m 'Adiciona MinhaFeature'`)
+- [ ] Push para a branch (`git push origin feature/MinhaFeature`)
+- [ ] Abertura de Pull Request
 
-### 🛠️ **Padrões de Código**
-
-#### **Estrutura de Arquivos**
-```typescript
-// ✅ Bom
-src/screens/auth/LoginScreen.tsx
-
-// ❌ Evitar
-src/screens/LoginScreen.tsx
-```
+### 📝 Padrões de Código
 
 #### **Nomenclatura**
+
 ```typescript
 // ✅ Componentes: PascalCase
 const LoginScreen = () => { ... }
@@ -267,10 +674,15 @@ const LoginScreen = () => { ... }
 const handleLogin = () => { ... }
 
 // ✅ Constantes: UPPER_SNAKE_CASE
-const API_BASE_URL = 'https://api.cbmpe.pe.gov.br'
+const API_BASE_URL = 'https://api.example.com'
+
+// ✅ Arquivos: PascalCase para componentes, camelCase para utilitários
+LoginScreen.tsx
+authService.ts
 ```
 
 #### **Imports Organizados**
+
 ```typescript
 // 1. React e bibliotecas externas
 import React from 'react';
@@ -284,157 +696,204 @@ import { User, LoginCredentials } from '../types';
 
 // 4. Utilitários e constantes
 import { Colors, Spacing } from '../utils/constants';
+
+// 5. Estilos
+import { authStyles } from '../styles';
 ```
 
-### 🐛 **Reportando Bugs**
+#### **Estrutura de Componente**
 
-Use o template abaixo:
+```typescript
+// 1. Imports
+import React from 'react';
+
+// 2. Tipos e interfaces
+interface Props {
+  // ...
+}
+
+// 3. Componente
+const MyComponent: React.FC<Props> = ({ ... }) => {
+  // 4. Estados
+  const [state, setState] = useState();
+  
+  // 5. Efeitos
+  useEffect(() => { ... }, []);
+  
+  // 6. Funções
+  const handleClick = () => { ... };
+  
+  // 7. Render
+  return (
+    // ...
+  );
+};
+
+// 8. Estilos
+const styles = StyleSheet.create({ ... });
+
+// 9. Export
+export default MyComponent;
+```
+
+### 🐛 Reportando Bugs
+
+Use este template:
 
 ```markdown
 ## 🐛 Bug Report
 
-**Descrição**: Breve descrição do bug
+**Descrição**: 
+Breve descrição do bug
 
 **Passos para Reproduzir**:
 1. Vá para '...'
 2. Clique em '...'
 3. Veja o erro
 
-**Comportamento Esperado**: O que deveria acontecer
+**Comportamento Esperado**: 
+O que deveria acontecer
 
-**Screenshots**: Se aplicável
+**Comportamento Atual**: 
+O que está acontecendo
+
+**Screenshots**: 
+Se aplicável, adicione screenshots
 
 **Ambiente**:
 - OS: [ex: iOS 16, Android 12]
-- Expo: [ex: 49.0.0]
+- Expo: [ex: ~54.0.7]
 - Dispositivo: [ex: iPhone 14, Samsung Galaxy S22]
+- Versão do Node: [ex: v18.17.0]
+
+**Logs**:
+Cole os logs do console aqui
 ```
 
-### ✨ **Sugerindo Funcionalidades**
+### ✨ Sugerindo Funcionalidades
 
 ```markdown
 ## ✨ Feature Request
 
-**Funcionalidade**: Descrição da funcionalidade
+**Funcionalidade**: 
+Descrição da funcionalidade
 
-**Problema que Resolve**: Por que é necessária?
+**Problema que Resolve**: 
+Por que é necessária?
 
-**Solução Proposta**: Como implementar?
+**Solução Proposta**: 
+Como implementar?
 
-**Alternativas**: Outras opções consideradas
+**Alternativas**: 
+Outras opções consideradas
 ```
 
-## 🛠️ Tecnologias
+---
 
-### **Frontend**
-- **React Native** 0.81.4 - Framework mobile
-- **Expo** ~54.0.7 - Plataforma de desenvolvimento
-- **TypeScript** ~5.9.2 - Tipagem estática
-- **React Navigation** 7.x - Navegação
+## 🛠️ Tecnologias e Dependências
 
-### **UI/UX & Estilos**
-- **Design System** modular e organizado
-- **Arquitetura de Estilos** separada por telas
-- **Cores Oficiais** do CBMPE (vermelho e dourado)
-- **Componentes Nativos** otimizados
-- **Responsive Design** para diferentes telas
-- **Sistema de Constantes** centralizado
+### 📦 Principais Dependências
 
-### **Arquitetura**
-- **Separação de Responsabilidades** por módulos
-- **Estilos Modulares** (`authStyles`, `dashboardStyles`, etc.)
-- **Tipagem Forte** com TypeScript
-- **Estrutura Escalável** e bem organizada
+#### **Core**
+- **React Native** `0.81.4` - Framework mobile
+- **React** `19.1.0` - Biblioteca JavaScript
+- **Expo** `~54.0.7` - Plataforma de desenvolvimento
+- **TypeScript** `~5.9.2` - Tipagem estática
 
-### **Desenvolvimento**
-- **ESLint** - Linting de código
-- **Prettier** - Formatação de código
-- **Git** - Controle de versão
-- **Expo CLI** - Ferramentas de desenvolvimento
+#### **Navegação**
+- **@react-navigation/native** `^7.1.17` - Navegação principal
+- **@react-navigation/stack** `^7.4.8` - Navegação tipo pilha
 
-## 🚀 Melhorias Implementadas
+#### **Armazenamento**
+- **@react-native-async-storage/async-storage** `^2.2.0` - Armazenamento local
 
-### ✨ **Refatoração de Estilos**
-- **Separação modular** dos estilos por tela
-- **Sistema de design** centralizado e consistente
-- **Cores oficiais** do CBMPE implementadas
-- **Componentes nativos** otimizados para performance
-- **Arquitetura escalável** para futuras expansões
+#### **HTTP**
+- **axios** `^1.13.2` - Cliente HTTP (para quando tiver API)
 
-### 🎯 **Benefícios Alcançados**
-- **Manutenibilidade** - Estilos organizados e fáceis de encontrar
-- **Consistência** - Design uniforme em todas as telas
-- **Performance** - Componentes nativos mais rápidos
-- **Escalabilidade** - Estrutura preparada para crescimento
-- **Colaboração** - Código mais limpo para trabalho em equipe
+#### **UI/UX**
+- **@expo/vector-icons** `^15.0.2` - Ícones
+- **expo-linear-gradient** `^15.0.7` - Gradientes
+- **react-native-signature-canvas** `^5.0.1` - Canvas para assinatura
 
-### 📊 **Estrutura Atual**
-```
-✅ LoginScreen - Interface profissional com logo CBMPE
-✅ DashboardScreen - Estatísticas e ações rápidas
-✅ OccurrenceFormScreen - Formulário completo de ocorrências
-✅ OccurrenceListScreen - Lista com filtros e estatísticas
-✅ SignatureScreen - Captura de assinatura digital
-✅ Sistema de Navegação - Fluxo completo entre telas
-```
+#### **Funcionalidades (Futuro)**
+- **expo-camera** `~17.0.8` - Câmera
+- **expo-image-picker** `^17.0.8` - Seletor de imagens
+- **expo-location** `^19.0.7` - Geolocalização
+- **react-native-maps** `^1.26.0` - Mapas
+- **firebase** `^12.2.1` - Firebase (futuro)
 
-## 📱 Comandos Úteis
+### 🔧 DevDependencies
 
-```bash
-# Instalar dependências
-npm install
+- **@types/react** `~19.1.0` - Tipos do React
+- **@types/react-native** `^0.72.8` - Tipos do React Native
+- **typescript** `~5.9.2` - Compilador TypeScript
 
-# Iniciar desenvolvimento
-npx expo start
+---
 
-# Limpar cache
-npx expo start --clear
+## 🚀 Próximos Passos
 
-# Build para produção
-npx expo build:android
-npx expo build:ios
+### 📋 Roadmap
 
-# Verificar problemas
-npx expo doctor
+#### **Fase 1: Fundação** ✅ (Concluído)
+- [x] Estrutura do projeto
+- [x] Sistema de navegação
+- [x] Telas de autenticação
+- [x] Sistema de mock
+- [x] Dashboard básico
 
-# Atualizar Expo
-npx expo install --fix
-```
+#### **Fase 2: Funcionalidades Core** 🔄 (Em Progresso)
+- [ ] Integração com API real
+- [ ] CRUD completo de ocorrências
+- [ ] Upload de imagens
+- [ ] Geolocalização
+- [ ] Filtros e busca
 
-## 🎨 Design System
+#### **Fase 3: Melhorias de UX** 📅 (Planejado)
+- [ ] Notificações push
+- [ ] Modo offline
+- [ ] Sincronização de dados
+- [ ] Animações e transições
+- [ ] Dark mode
 
-### **Cores Oficiais CBMPE**
-```typescript
-const Colors = {
-  primary: '#E53935',      // Vermelho principal
-  secondary: '#FFD700',    // Dourado
-  success: '#10B981',      // Verde
-  warning: '#F59E0B',      // Amarelo
-  error: '#EF4444',        // Vermelho erro
-}
-```
+#### **Fase 4: Funcionalidades Avançadas** 📅 (Futuro)
+- [ ] Relatórios e estatísticas
+- [ ] Exportação de dados
+- [ ] Compartilhamento
+- [ ] Integração com mapas
+- [ ] Chat/Mensagens
 
-### **Espaçamentos**
-```typescript
-const Spacing = {
-  xs: 4,    // Muito pequeno
-  sm: 8,    // Pequeno
-  md: 16,   // Médio
-  lg: 24,   // Grande
-  xl: 32,   // Muito grande
-}
-```
+### 🎯 Prioridades Imediatas
 
-## 📞 Contato
+1. **Integração com API** (quando backend estiver pronto)
+2. **Upload de imagens** nas ocorrências
+3. **Geolocalização** automática
+4. **Filtros avançados** na lista de ocorrências
+5. **Validações** mais robustas
 
-### **Desenvolvedor Principal**
-- **Nome**: [Seu Nome]
+---
+
+## 📞 Contato e Suporte
+
+### 👥 Equipe de Desenvolvimento
+
+- **Desenvolvedor Principal**: [Seu Nome]
 - **Email**: [seu.email@exemplo.com]
 - **GitHub**: [@seu-usuario](https://github.com/seu-usuario)
 
-### **CBMPE**
+### 🏢 CBMPE
+
 - **Site**: [www.cbmpe.pe.gov.br](https://www.cbmpe.pe.gov.br)
 - **Email**: [contato@cbmpe.pe.gov.br](mailto:contato@cbmpe.pe.gov.br)
+
+### 🆘 Precisa de Ajuda?
+
+1. Verifique a seção [Troubleshooting](#-troubleshooting)
+2. Consulte os logs do console
+3. Verifique a documentação do [Expo](https://docs.expo.dev/)
+4. Abra uma issue no GitHub
+5. Entre em contato com a equipe
+
+---
 
 ## 📄 Licença
 
@@ -442,28 +901,23 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 
-## 🚀 Quick Start para Novos Contribuidores
+## 🙏 Agradecimentos
 
-```bash
-# 1. Clone o projeto
-git clone https://github.com/seu-usuario/cbmpe-app.git
-cd cbmpe-app
-
-# 2. Instale dependências
-npm install
-
-# 3. Inicie o projeto
-npx expo start
-
-# 4. Escaneie o QR Code com Expo Go
-# 5. Comece a desenvolver! 🎉
-```
-
-**Dica**: Comece explorando a pasta `src/screens/auth/LoginScreen.tsx` para entender a estrutura!
+- **CBMPE** - Por confiar no projeto
+- **React Native Community** - Pela excelente documentação
+- **Expo Team** - Pela plataforma incrível
+- **Todos os contribuidores** - Por ajudar a melhorar o projeto
 
 ---
 
 <div align="center">
-  <p>Desenvolvido com ❤️ para o <strong>CBMPE</strong></p>
-  <p>🚒 Corpo de Bombeiros Militar de Pernambuco 🚒</p>
+
+**Desenvolvido com ❤️ para o CBMPE**
+
+🚒 **Corpo de Bombeiros Militar de Pernambuco** 🚒
+
+---
+
+*Última atualização: Dezembro 2024*
+
 </div>
