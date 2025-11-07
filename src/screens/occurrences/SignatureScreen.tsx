@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import SignatureCanvas from 'react-native-signature-canvas';
 import { RootStackParamList } from '../../types';
 
 type SignatureScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Signature'>;
@@ -15,9 +16,11 @@ interface Props {
 const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
   const { occurrenceId } = route.params;
   const [signature, setSignature] = useState<string>('');
+  const [isEmpty, setIsEmpty] = useState<boolean>(true);
+  const signatureRef = useRef<any>(null);
 
   const handleSaveSignature = () => {
-    if (!signature) {
+    if (isEmpty) {
       Alert.alert('Atenção', 'Por favor, capture sua assinatura.');
       return;
     }
@@ -28,8 +31,41 @@ const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const handleClearSignature = () => {
+    signatureRef.current?.clearSignature();
     setSignature('');
+    setIsEmpty(true);
   };
+
+  const handleBegin = () => {
+    setIsEmpty(false);
+  };
+
+  const handleEnd = () => {
+    signatureRef.current?.readSignature();
+  };
+
+  const handleOK = (signature: string) => {
+    setSignature(signature);
+    setIsEmpty(false);
+  };
+
+  const handleEmpty = () => {
+    setIsEmpty(true);
+  };
+
+  const style = `
+    .m-signature-pad {
+      box-shadow: none;
+      border: none;
+      background-color: transparent;
+    }
+    .m-signature-pad--body {
+      border: none;
+    }
+    .m-signature-pad--footer {
+      display: none;
+    }
+  `;
 
   return (
     <View style={styles.container}>
@@ -41,29 +77,39 @@ const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
       <View style={styles.content}>
         <View style={styles.signatureContainer}>
           <View style={styles.signatureArea}>
-            {signature ? (
-              <View style={styles.signaturePreview}>
-                <Text style={styles.signatureText}>✍️ Assinatura Capturada</Text>
-              </View>
-            ) : (
-              <View style={styles.signaturePlaceholder}>
-                <Text style={styles.placeholderText}>Área de Assinatura</Text>
-                <Text style={styles.placeholderSubtext}>Toque para capturar sua assinatura</Text>
-              </View>
-            )}
+            <SignatureCanvas
+              ref={signatureRef}
+              onBegin={handleBegin}
+              onEnd={handleEnd}
+              onOK={handleOK}
+              onEmpty={handleEmpty}
+              descriptionText=""
+              clearText=""
+              confirmText=""
+              webStyle={style}
+              backgroundColor="transparent"
+              penColor="#000000"
+              minWidth={2}
+              maxWidth={4}
+              style={{
+                flex: 1,
+                backgroundColor: '#FFFFFF',
+                borderRadius: 8,
+              }}
+            />
           </View>
 
           <View style={styles.signatureActions}>
             <TouchableOpacity
               style={styles.captureButton}
-              onPress={() => setSignature('captured')}
+              onPress={handleEnd}
             >
               <Text style={styles.captureButtonText}>
-                {signature ? 'Recapturar' : 'Capturar Assinatura'}
+                Finalizar Assinatura
               </Text>
             </TouchableOpacity>
 
-            {signature && (
+            {!isEmpty && (
               <TouchableOpacity
                 style={styles.clearButton}
                 onPress={handleClearSignature}
@@ -86,11 +132,13 @@ const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
             • A assinatura tem valor legal
           </Text>
         </View>
+      </View>
 
+      <View style={styles.footerContainer}>
         <TouchableOpacity
-          style={[styles.saveButton, !signature && styles.saveButtonDisabled]}
+          style={[styles.saveButton, isEmpty && styles.saveButtonDisabled]}
           onPress={handleSaveSignature}
-          disabled={!signature}
+          disabled={isEmpty}
         >
           <Text style={styles.saveButtonText}>Salvar Assinatura</Text>
         </TouchableOpacity>
@@ -127,7 +175,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 30,
     marginTop: -20,
-    paddingBottom: 30,
+    paddingBottom: 20,
   },
   signatureContainer: {
     backgroundColor: '#FFFFFF',
@@ -147,33 +195,7 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     borderRadius: 12,
     marginBottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  signaturePreview: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  signatureText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#4CAF50',
-  },
-  signaturePlaceholder: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeholderText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#94A3B8',
-    marginBottom: 8,
-  },
-  placeholderSubtext: {
-    fontSize: 14,
-    color: '#CBD5E1',
+    overflow: 'hidden',
   },
   signatureActions: {
     flexDirection: 'row',
@@ -226,11 +248,24 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     lineHeight: 20,
   },
+  footerContainer: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   saveButton: {
     backgroundColor: '#E53935',
-    padding: 20,
+    padding: 18,
     borderRadius: 12,
     alignItems: 'center',
+    marginBottom: 10,
   },
   saveButtonDisabled: {
     backgroundColor: '#CBD5E1',

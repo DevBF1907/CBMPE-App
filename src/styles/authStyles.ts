@@ -101,4 +101,22 @@ export const authStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
   },
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+  linkContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  linkText: {
+    fontSize: 14,
+    color: '#64748B',
+  },
+  link: {
+    fontSize: 14,
+    color: '#E53935',
+    fontWeight: '600',
+  },
 });

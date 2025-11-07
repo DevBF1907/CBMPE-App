@@ -6,6 +6,7 @@ import { Colors, FontSizes } from '../utils/constants';
 
 // Screens
 import LoginScreen from '../screens/auth/LoginScreen';
+import RegisterScreen from '../screens/auth/RegisterScreen';
 import DashboardScreen from '../screens/dashboard/DashboardScreen';
 import OccurrenceFormScreen from '../screens/occurrences/OccurrenceFormScreen';
 import OccurrenceListScreen from '../screens/occurrences/OccurrenceListScreen';
@@ -29,13 +30,23 @@ const AppNavigator: React.FC = () => {
             fontWeight: '700',
             fontSize: FontSizes.lg,
           },
-          headerBackTitleVisible: false,
         }}
       >
         <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{ 
+            title: 'Cadastro',
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
+            headerTintColor: Colors.white,
+          }}
         />
         <Stack.Screen
           name="Dashboard"
