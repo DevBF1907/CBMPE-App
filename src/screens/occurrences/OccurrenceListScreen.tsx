@@ -19,32 +19,7 @@ interface Occurrence {
 }
 
 const OccurrenceListScreen: React.FC<Props> = ({ navigation }) => {
-  const [occurrences] = useState<Occurrence[]>([
-    {
-      id: '1',
-      type: 'Incêndio',
-      address: 'Rua das Flores, 123',
-      priority: 'Alta',
-      status: 'Em Andamento',
-      date: '2024-01-15 14:30',
-    },
-    {
-      id: '2',
-      type: 'Resgate',
-      address: 'Av. Principal, 456',
-      priority: 'Crítica',
-      status: 'Concluída',
-      date: '2024-01-15 12:15',
-    },
-    {
-      id: '3',
-      type: 'Emergência Médica',
-      address: 'Praça Central',
-      priority: 'Média',
-      status: 'Pendente',
-      date: '2024-01-15 10:45',
-    },
-  ]);
+  const [occurrences] = useState<Occurrence[]>([]); // Nenhuma ocorrência ainda
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
@@ -112,23 +87,26 @@ const OccurrenceListScreen: React.FC<Props> = ({ navigation }) => {
           </View>
         </View>
 
-        <FlatList
-          data={occurrences}
-          renderItem={renderOccurrence}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
-        />
+        {occurrences.length > 0 ? (
+          <FlatList
+            data={occurrences}
+            renderItem={renderOccurrence}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.listContainer}
+          />
+        ) : (
+          <View style={{ alignItems: 'center', marginTop: 50 }}>
+            <Text style={{ color: '#64748B', fontSize: 16 }}>Nenhuma ocorrência registrada</Text>
+          </View>
+        )}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8FAFC',
-  },
+  container: { flex: 1, backgroundColor: '#F8FAFC' },
   header: {
     backgroundColor: '#E53935',
     paddingTop: 60,
@@ -137,26 +115,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    opacity: 0.9,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 30,
-    marginTop: -20,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
+  title: { fontSize: 28, fontWeight: '800', color: '#FFFFFF', marginBottom: 8 },
+  subtitle: { fontSize: 16, color: '#FFFFFF', opacity: 0.9 },
+  content: { flex: 1, paddingHorizontal: 30, marginTop: -20 },
+  statsContainer: { flexDirection: 'row', marginBottom: 20 },
   statItem: {
     flex: 1,
     backgroundColor: '#FFFFFF',
@@ -170,20 +132,9 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  statNumber: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: '#E53935',
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#64748B',
-    fontWeight: '500',
-  },
-  listContainer: {
-    paddingBottom: 20,
-  },
+  statNumber: { fontSize: 24, fontWeight: '800', color: '#E53935', marginBottom: 4 },
+  statLabel: { fontSize: 12, color: '#64748B', fontWeight: '500' },
+  listContainer: { paddingBottom: 20 },
   occurrenceCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
@@ -195,51 +146,15 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  occurrenceHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  occurrenceType: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#1A202C',
-  },
-  priorityBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
-  priorityText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-  occurrenceAddress: {
-    fontSize: 14,
-    color: '#64748B',
-    marginBottom: 16,
-  },
-  occurrenceFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
-  statusText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-  occurrenceDate: {
-    fontSize: 12,
-    color: '#94A3B8',
-  },
+  occurrenceHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
+  occurrenceType: { fontSize: 18, fontWeight: '700', color: '#1A202C' },
+  priorityBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16 },
+  priorityText: { fontSize: 12, fontWeight: '600', color: '#FFFFFF' },
+  occurrenceAddress: { fontSize: 14, color: '#64748B', marginBottom: 16 },
+  occurrenceFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  statusBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16 },
+  statusText: { fontSize: 12, fontWeight: '600', color: '#FFFFFF' },
+  occurrenceDate: { fontSize: 12, color: '#94A3B8' },
 });
 
 export default OccurrenceListScreen;

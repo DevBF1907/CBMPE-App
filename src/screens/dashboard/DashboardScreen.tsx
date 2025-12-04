@@ -11,10 +11,10 @@ interface Props {
 }
 
 const DashboardScreen: React.FC<Props> = ({ navigation }) => {
+  // Removi "Em Andamento"
   const stats = [
-    { label: 'Ocorrências Hoje', value: '12', color: '#E53935' },
-    { label: 'Concluídas', value: '8', color: '#4CAF50' },
-    { label: 'Em Andamento', value: '4', color: '#FF9800' },
+    { label: 'Ocorrências Hoje', value: '0', color: '#E53935' },
+    { label: 'Concluídas', value: '0', color: '#4CAF50' },
   ];
 
   const quickActions = [
@@ -39,6 +39,10 @@ const DashboardScreen: React.FC<Props> = ({ navigation }) => {
       onPress: () => navigation.navigate('Signature', { occurrenceId: 'temp' }),
       color: '#FFD700',
     },
+  ];
+
+  const recentActivity = [
+    { title: 'Nenhuma atividade registrada', time: '-', color: '#CCCCCC' },
   ];
 
   return (
@@ -82,27 +86,15 @@ const DashboardScreen: React.FC<Props> = ({ navigation }) => {
       <View style={dashboardStyles.recentActivity}>
         <Text style={dashboardStyles.sectionTitle}>Atividade Recente</Text>
         <View style={dashboardStyles.activityCard}>
-          <View style={dashboardStyles.activityItem}>
-            <View style={[dashboardStyles.activityDot, { backgroundColor: '#4CAF50' }]} />
-            <View style={dashboardStyles.activityContent}>
-              <Text style={dashboardStyles.activityTitle}>Ocorrência #001 concluída</Text>
-              <Text style={dashboardStyles.activityTime}>Há 2 horas</Text>
+          {recentActivity.map((activity, index) => (
+            <View key={index} style={dashboardStyles.activityItem}>
+              <View style={[dashboardStyles.activityDot, { backgroundColor: activity.color }]} />
+              <View style={dashboardStyles.activityContent}>
+                <Text style={dashboardStyles.activityTitle}>{activity.title}</Text>
+                <Text style={dashboardStyles.activityTime}>{activity.time}</Text>
+              </View>
             </View>
-          </View>
-          <View style={dashboardStyles.activityItem}>
-            <View style={[dashboardStyles.activityDot, { backgroundColor: '#FF9800' }]} />
-            <View style={dashboardStyles.activityContent}>
-              <Text style={dashboardStyles.activityTitle}>Nova ocorrência registrada</Text>
-              <Text style={dashboardStyles.activityTime}>Há 4 horas</Text>
-            </View>
-          </View>
-          <View style={dashboardStyles.activityItem}>
-            <View style={[dashboardStyles.activityDot, { backgroundColor: '#2196F3' }]} />
-            <View style={dashboardStyles.activityContent}>
-              <Text style={dashboardStyles.activityTitle}>Assinatura digital capturada</Text>
-              <Text style={dashboardStyles.activityTime}>Há 6 horas</Text>
-            </View>
-          </View>
+          ))}
         </View>
       </View>
     </ScrollView>

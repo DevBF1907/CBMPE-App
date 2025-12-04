@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Alert, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
+import { 
+  View, Text, Image, Alert, TouchableOpacity, TextInput, 
+  ActivityIndicator, Platform, KeyboardAvoidingView, ScrollView 
+} from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types';
 import { authStyles } from '../../styles';
@@ -36,68 +39,82 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <View style={authStyles.container}>
-      <View style={authStyles.header}>
-        <View style={authStyles.logoContainer}>
-          <Image 
-            source={require('../../assets/images/brasao.png')} 
-            style={authStyles.logo}
-            resizeMode="contain"
-          />
-        </View>
-        <Text style={authStyles.title}>CBMPE</Text>
-        <Text style={authStyles.subtitle}>Corpo de Bombeiros Militar de Pernambuco</Text>
-        <Text style={authStyles.systemTitle}>Sistema de Gestão de Ocorrências</Text>
-      </View>
-
-      <View style={authStyles.formContainer}>
-        <View style={authStyles.formCard}>
-          <Text style={authStyles.formTitle}>Acesso ao Sistema</Text>
+    <KeyboardAvoidingView 
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={authStyles.container}>
           
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Email</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="seu.email@cbmpe.pe.gov.br"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
+          <View style={authStyles.header}>
+            <View style={authStyles.logoContainer}>
+              <Image 
+                source={require('../../assets/images/brasao.png')} 
+                style={authStyles.logo}
+                resizeMode="contain"
+              />
+            </View>
+            <Text style={authStyles.title}>CBMPE</Text>
+            <Text style={authStyles.subtitle}>
+              Corpo de Bombeiros Militar de Pernambuco
+            </Text>
+            <Text style={authStyles.systemTitle}>
+              Sistema de Gestão de Ocorrências
+            </Text>
           </View>
 
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Senha</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="Digite sua senha"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
+          <View style={authStyles.formContainer}>
+            <View style={authStyles.formCard}>
+              <Text style={authStyles.formTitle}>Acesso ao Sistema</Text>
+
+              <View style={authStyles.inputContainer}>
+                <Text style={authStyles.label}>Email</Text>
+                <TextInput
+                  style={authStyles.input}
+                  placeholder="seu.email@cbmpe.pe.gov.br"
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                />
+              </View>
+
+              <View style={authStyles.inputContainer}>
+                <Text style={authStyles.label}>Senha</Text>
+                <TextInput
+                  style={authStyles.input}
+                  placeholder="Digite sua senha"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry
+                />
+              </View>
+
+              <TouchableOpacity
+                style={[authStyles.button, loading && authStyles.buttonDisabled]}
+                onPress={handleLogin}
+                disabled={loading}
+              >
+                {loading ? (
+                  <ActivityIndicator color="#FFFFFF" />
+                ) : (
+                  <Text style={authStyles.buttonText}>Acessar Sistema</Text>
+                )}
+              </TouchableOpacity>
+
+              <View style={authStyles.linkContainer}>
+                <Text style={authStyles.linkText}>Não tem uma conta? </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                  <Text style={authStyles.link}>Cadastre-se</Text>
+                </TouchableOpacity>
+              </View>
+
+            </View>
           </View>
 
-          <TouchableOpacity
-            style={[authStyles.button, loading && authStyles.buttonDisabled]}
-            onPress={handleLogin}
-            disabled={loading}
-          >
-            {loading ? (
-              <ActivityIndicator color="#FFFFFF" />
-            ) : (
-              <Text style={authStyles.buttonText}>Acessar Sistema</Text>
-            )}
-          </TouchableOpacity>
-
-          <View style={authStyles.linkContainer}>
-            <Text style={authStyles.linkText}>Não tem uma conta? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <Text style={authStyles.link}>Cadastre-se</Text>
-            </TouchableOpacity>
-          </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types';
 
@@ -29,76 +29,89 @@ const OccurrenceFormScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Nova Ocorrência</Text>
-        <Text style={styles.subtitle}>Registre os dados da ocorrência</Text>
-      </View>
-
-      <View style={styles.formContainer}>
-        <View style={styles.formCard}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Tipo de Ocorrência *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Ex: Incêndio, Resgate, Emergência Médica"
-              value={formData.type}
-              onChangeText={(text) => setFormData({ ...formData, type: text })}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Endereço *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Endereço completo da ocorrência"
-              value={formData.address}
-              onChangeText={(text) => setFormData({ ...formData, address: text })}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Prioridade</Text>
-            <View style={styles.priorityContainer}>
-              {['Baixa', 'Média', 'Alta', 'Crítica'].map((priority) => (
-                <TouchableOpacity
-                  key={priority}
-                  style={[
-                    styles.priorityButton,
-                    formData.priority === priority && styles.priorityButtonSelected
-                  ]}
-                  onPress={() => setFormData({ ...formData, priority })}
-                >
-                  <Text style={[
-                    styles.priorityText,
-                    formData.priority === priority && styles.priorityTextSelected
-                  ]}>
-                    {priority}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Descrição *</Text>
-            <TextInput
-              style={[styles.input, styles.textArea]}
-              placeholder="Descreva detalhadamente a ocorrência"
-              value={formData.description}
-              onChangeText={(text) => setFormData({ ...formData, description: text })}
-              multiline
-              numberOfLines={4}
-              textAlignVertical="top"
-            />
-          </View>
-
-          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-            <Text style={styles.saveButtonText}>Salvar Ocorrência</Text>
-          </TouchableOpacity>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <ScrollView
+        style={styles.container}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: 40 }}
+      >
+        <View style={styles.header}>
+          <Text style={styles.title}>Nova Ocorrência</Text>
+          <Text style={styles.subtitle}>Registre os dados da ocorrência</Text>
         </View>
-      </View>
-    </ScrollView>
+
+        <View style={styles.formContainer}>
+          <View style={styles.formCard}>
+            
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Tipo de Ocorrência *</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Ex: Incêndio, Resgate, Emergência Médica"
+                value={formData.type}
+                onChangeText={(text) => setFormData({ ...formData, type: text })}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Endereço *</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Endereço completo da ocorrência"
+                value={formData.address}
+                onChangeText={(text) => setFormData({ ...formData, address: text })}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Prioridade</Text>
+              <View style={styles.priorityContainer}>
+                {['Baixa', 'Média', 'Alta', 'Crítica'].map((priority) => (
+                  <TouchableOpacity
+                    key={priority}
+                    style={[
+                      styles.priorityButton,
+                      formData.priority === priority && styles.priorityButtonSelected
+                    ]}
+                    onPress={() => setFormData({ ...formData, priority })}
+                  >
+                    <Text
+                      style={[
+                        styles.priorityText,
+                        formData.priority === priority && styles.priorityTextSelected
+                      ]}
+                    >
+                      {priority}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Descrição *</Text>
+              <TextInput
+                style={[styles.input, styles.textArea]}
+                placeholder="Descreva detalhadamente a ocorrência"
+                value={formData.description}
+                onChangeText={(text) => setFormData({ ...formData, description: text })}
+                multiline
+                numberOfLines={4}
+                textAlignVertical="top"
+              />
+            </View>
+
+            <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+              <Text style={styles.saveButtonText}>Salvar Ocorrência</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

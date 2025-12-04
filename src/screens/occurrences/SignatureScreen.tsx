@@ -17,6 +17,7 @@ const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
   const { occurrenceId } = route.params;
   const [signature, setSignature] = useState<string>('');
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
+  const [isFinalized, setIsFinalized] = useState<boolean>(false);
   const signatureRef = useRef<any>(null);
 
   const handleSaveSignature = () => {
@@ -34,6 +35,7 @@ const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
     signatureRef.current?.clearSignature();
     setSignature('');
     setIsEmpty(true);
+    setIsFinalized(false);
   };
 
   const handleBegin = () => {
@@ -51,6 +53,14 @@ const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const handleEmpty = () => {
     setIsEmpty(true);
+  };
+
+  const handleFinalize = () => {
+    if (isEmpty) {
+      Alert.alert('Atenção', 'Você precisa assinar antes de finalizar.');
+      return;
+    }
+    setIsFinalized(true);
   };
 
   const style = `
@@ -77,39 +87,47 @@ const SignatureScreen: React.FC<Props> = ({ navigation, route }) => {
       <View style={styles.content}>
         <View style={styles.signatureContainer}>
           <View style={styles.signatureArea}>
-            <SignatureCanvas
-              ref={signatureRef}
-              onBegin={handleBegin}
-              onEnd={handleEnd}
-              onOK={handleOK}
-              onEmpty={handleEmpty}
-              descriptionText=""
-              clearText=""
-              confirmText=""
-              webStyle={style}
-              backgroundColor="transparent"
-              penColor="#000000"
-              minWidth={2}
-              maxWidth={4}
-              style={{
-                flex: 1,
-                backgroundColor: '#FFFFFF',
-                borderRadius: 8,
-              }}
-            />
+            {!isFinalized ? (
+              <SignatureCanvas
+                ref={signatureRef}
+                onBegin={handleBegin}
+                onEnd={handleEnd}
+                onOK={handleOK}
+                onEmpty={handleEmpty}
+                descriptionText=""
+                clearText=""
+                confirmText=""
+                webStyle={style}
+                backgroundColor="transparent"
+                penColor="#000000"
+                minWidth={2}
+                maxWidth={4}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: 8,
+                }}
+              />
+            ) : (
+              <View style={[styles.signatureArea, { justifyContent: 'center', alignItems: 'center' }]}>
+                <Text>Assinatura finalizada</Text>
+              </View>
+            )}
           </View>
 
           <View style={styles.signatureActions}>
-            <TouchableOpacity
-              style={styles.captureButton}
-              onPress={handleEnd}
-            >
-              <Text style={styles.captureButtonText}>
-                Finalizar Assinatura
-              </Text>
-            </TouchableOpacity>
+            {!isFinalized && (
+              <TouchableOpacity
+                style={styles.captureButton}
+                onPress={handleFinalize}
+              >
+                <Text style={styles.captureButtonText}>
+                  Finalizar Assinatura
+                </Text>
+              </TouchableOpacity>
+            )}
 
-            {!isEmpty && (
+            {!isEmpty && !isFinalized && (
               <TouchableOpacity
                 style={styles.clearButton}
                 onPress={handleClearSignature}

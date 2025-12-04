@@ -187,7 +187,7 @@ export const occurrenceStyles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 16,
   },
-  priorityText: {
+  priorityTextBadge: { // renomeada para evitar duplicação
     fontSize: 12,
     fontWeight: '600',
     color: '#FFFFFF',

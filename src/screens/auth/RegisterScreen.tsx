@@ -8,6 +8,8 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types';
@@ -81,9 +83,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleRegister = async () => {
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
     try {
@@ -118,133 +118,134 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
       );
     } catch (error: any) {
       console.error('❌ [REGISTER] Erro no cadastro:', error);
-      console.error('❌ [REGISTER] Tipo do erro:', typeof error);
-      console.error('❌ [REGISTER] Mensagem:', error?.message);
-      console.error('❌ [REGISTER] Erro completo:', JSON.stringify(error, null, 2));
 
-      const errorMessage = error?.message || error?.toString() || 'Erro desconhecido ao realizar cadastro.';
-      
-      Alert.alert(
-        'Erro ao Cadastrar',
-        errorMessage,
-        [{ text: 'OK' }]
-      );
+      const errorMessage = error?.message || 'Erro desconhecido ao realizar cadastro.';
+
+      Alert.alert('Erro ao Cadastrar', errorMessage, [{ text: 'OK' }]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <ScrollView
-      style={authStyles.container}
-      contentContainerStyle={{ flexGrow: 1 }}
-      keyboardShouldPersistTaps="handled"
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
     >
-      <View style={authStyles.header}>
-        <View style={authStyles.logoContainer}>
-          <Image
-            source={require('../../assets/images/brasao.png')}
-            style={authStyles.logo}
-            resizeMode="contain"
-          />
+      <ScrollView
+        style={authStyles.container}
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={authStyles.header}>
+          <View style={authStyles.logoContainer}>
+            <Image
+              source={require('../../assets/images/brasao.png')}
+              style={authStyles.logo}
+              resizeMode="contain"
+            />
+          </View>
+          <Text style={authStyles.title}>CBMPE</Text>
+          <Text style={authStyles.subtitle}>Corpo de Bombeiros Militar de Pernambuco</Text>
+          <Text style={authStyles.systemTitle}>Cadastro de Bombeiro</Text>
         </View>
-        <Text style={authStyles.title}>CBMPE</Text>
-        <Text style={authStyles.subtitle}>Corpo de Bombeiros Militar de Pernambuco</Text>
-        <Text style={authStyles.systemTitle}>Cadastro de Bombeiro</Text>
-      </View>
 
-      <View style={authStyles.formContainer}>
-        <View style={authStyles.formCard}>
-          <Text style={authStyles.formTitle}>Criar Conta</Text>
+        <View style={authStyles.formContainer}>
+          <View style={authStyles.formCard}>
+            <Text style={authStyles.formTitle}>Criar Conta</Text>
 
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Nome Completo *</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="Ex: João da Silva"
-              value={formData.name}
-              onChangeText={(text) => setFormData({ ...formData, name: text })}
-              autoCapitalize="words"
-            />
-          </View>
+            <View style={authStyles.inputContainer}>
+              <Text style={authStyles.label}>Nome Completo *</Text>
+              <TextInput
+                style={authStyles.input}
+                placeholder="Ex: João da Silva"
+                value={formData.name}
+                onChangeText={(text) => setFormData({ ...formData, name: text })}
+                autoCapitalize="words"
+              />
+            </View>
 
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Email *</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="seu.email@cbmpe.pe.gov.br"
-              value={formData.email}
-              onChangeText={(text) => setFormData({ ...formData, email: text })}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
+            <View style={authStyles.inputContainer}>
+              <Text style={authStyles.label}>Email *</Text>
+              <TextInput
+                style={authStyles.input}
+                placeholder="seu.email@cbmpe.pe.gov.br"
+                value={formData.email}
+                onChangeText={(text) => setFormData({ ...formData, email: text })}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
 
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Patente *</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="Ex: Soldado, Cabo, Sargento"
-              value={formData.rank}
-              onChangeText={(text) => setFormData({ ...formData, rank: text })}
-              autoCapitalize="words"
-            />
-          </View>
+            <View style={authStyles.inputContainer}>
+              <Text style={authStyles.label}>Patente *</Text>
+              <TextInput
+                style={authStyles.input}
+                placeholder="Ex: Soldado, Cabo, Sargento"
+                value={formData.rank}
+                onChangeText={(text) => setFormData({ ...formData, rank: text })}
+                autoCapitalize="words"
+              />
+            </View>
 
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Unidade *</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="Ex: 1º BBM, 2º BBM, COE"
-              value={formData.unit}
-              onChangeText={(text) => setFormData({ ...formData, unit: text })}
-              autoCapitalize="words"
-            />
-          </View>
+            <View style={authStyles.inputContainer}>
+              <Text style={authStyles.label}>Unidade *</Text>
+              <TextInput
+                style={authStyles.input}
+                placeholder="Ex: 1º BBM, 2º BBM, COE"
+                value={formData.unit}
+                onChangeText={(text) => setFormData({ ...formData, unit: text })}
+                autoCapitalize="words"
+              />
+            </View>
 
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Senha *</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="Mínimo 6 caracteres"
-              value={formData.password}
-              onChangeText={(text) => setFormData({ ...formData, password: text })}
-              secureTextEntry
-            />
-          </View>
+            <View style={authStyles.inputContainer}>
+              <Text style={authStyles.label}>Senha *</Text>
+              <TextInput
+                style={authStyles.input}
+                placeholder="Mínimo 6 caracteres"
+                value={formData.password}
+                onChangeText={(text) => setFormData({ ...formData, password: text })}
+                secureTextEntry
+              />
+            </View>
 
-          <View style={authStyles.inputContainer}>
-            <Text style={authStyles.label}>Confirmar Senha *</Text>
-            <TextInput
-              style={authStyles.input}
-              placeholder="Digite a senha novamente"
-              value={formData.confirmPassword}
-              onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
-              secureTextEntry
-            />
-          </View>
+            <View style={authStyles.inputContainer}>
+              <Text style={authStyles.label}>Confirmar Senha *</Text>
+              <TextInput
+                style={authStyles.input}
+                placeholder="Digite a senha novamente"
+                value={formData.confirmPassword}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, confirmPassword: text })
+                }
+                secureTextEntry
+              />
+            </View>
 
-          <TouchableOpacity
-            style={[authStyles.button, loading && authStyles.buttonDisabled]}
-            onPress={handleRegister}
-            disabled={loading}
-          >
-            {loading ? (
-              <ActivityIndicator color="#FFFFFF" />
-            ) : (
-              <Text style={authStyles.buttonText}>Cadastrar</Text>
-            )}
-          </TouchableOpacity>
-
-          <View style={authStyles.linkContainer}>
-            <Text style={authStyles.linkText}>Já tem uma conta? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={authStyles.link}>Fazer Login</Text>
+            <TouchableOpacity
+              style={[authStyles.button, loading && authStyles.buttonDisabled]}
+              onPress={handleRegister}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#FFFFFF" />
+              ) : (
+                <Text style={authStyles.buttonText}>Cadastrar</Text>
+              )}
             </TouchableOpacity>
+
+            <View style={authStyles.linkContainer}>
+              <Text style={authStyles.linkText}>Já tem uma conta? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={authStyles.link}>Fazer Login</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
