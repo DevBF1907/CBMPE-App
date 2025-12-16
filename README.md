@@ -918,6 +918,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 
-*Última atualização: Dezembro 2024*
+
 
 </div>
