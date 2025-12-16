@@ -876,9 +876,9 @@ Outras opções consideradas
 
 ### 👥 Equipe de Desenvolvimento
 
-- **Desenvolvedor Principal**: [Seu Nome]
-- **Email**: [seu.email@exemplo.com]
-- **GitHub**: [@seu-usuario](https://github.com/seu-usuario)
+- **Desenvolvedor Principal**: [Brenno Felipe]
+- **Email**: [devbrenno1907@gmail.com]
+- **GitHub**: [@DevBF1907]((https://github.com/DevBF1907))
 
 ### 🏢 CBMPE
 
@@ -893,26 +893,8 @@ Outras opções consideradas
 4. Abra uma issue no GitHub
 5. Entre em contato com a equipe
 
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-## 🙏 Agradecimentos
-
-- **CBMPE** - Por confiar no projeto
-- **React Native Community** - Pela excelente documentação
-- **Expo Team** - Pela plataforma incrível
-- **Todos os contribuidores** - Por ajudar a melhorar o projeto
-
----
-
 <div align="center">
 
-**Desenvolvido com ❤️ para o CBMPE**
 
 🚒 **Corpo de Bombeiros Militar de Pernambuco** 🚒
 
